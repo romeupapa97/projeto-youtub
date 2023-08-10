@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import Header from "./components/header";
+import Menu from "./components/menu";
+import { UserContext } from "./contexts/userContext";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
+import Shorts from "./pages/shorts";
+import Inscricao from "./pages/inscrição";
+import Libery from "./pages/biblioteca";
+import Historico from "./pages/historico";
 
 function App() {
+  const {openMenu, setOpenMenu}=useContext(UserContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    
+      <div className="App">
+        <Header openMenu={openMenu} setOpenMenu={setOpenMenu}/>
+        <div style={{width:'100%', display:'flex'}}>
+          <Menu openMenu={openMenu} />
+          <div style={{ width: '100%', padding:'50px 70px', boxSizing:'border-box', display:'flex', justifyContent:'center'}}>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/shorts' element={<Shorts/>}/>
+              <Route path='/inscrições' element={<Inscricao/>}/>
+              <Route path='/biblioteca' element={<Libery/>}/>
+              <Route path='/historico' element={<Historico/>}/>
+            </Routes>
+          </div>
+        </div>
+      </div>
+     </BrowserRouter>
   );
 }
 
